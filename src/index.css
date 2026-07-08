@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-cream text-forest-950 dark:bg-forest-950 dark:text-cream font-body antialiased transition-colors duration-300;
+  }
+  h1, h2, h3, h4, h5 {
+    @apply font-display;
+  }
+  ::selection {
+    @apply bg-gold-400/40;
+  }
+  :focus-visible {
+    outline: 2px solid #c9a227;
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply bg-white/60 dark:bg-forest-900/50 backdrop-blur-xl border border-white/40 dark:border-white/10;
+  }
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-forest-900 text-cream px-6 py-3 font-medium tracking-wide transition-all duration-300 hover:bg-forest-700 hover:shadow-card active:scale-95 dark:bg-gold-500 dark:text-forest-950 dark:hover:bg-gold-400;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-forest-900/20 dark:border-cream/20 px-6 py-3 font-medium tracking-wide transition-all duration-300 hover:border-forest-900 hover:bg-forest-900 hover:text-cream dark:hover:bg-cream dark:hover:text-forest-950 active:scale-95;
+  }
+  .section-eyebrow {
+    @apply text-xs font-semibold tracking-[0.25em] uppercase text-gold-600 dark:text-gold-400;
+  }
+  .card-surface {
+    @apply bg-white dark:bg-forest-900 rounded-3xl shadow-soft border border-forest-900/5 dark:border-white/5;
+  }
+  .input-field {
+    @apply w-full rounded-2xl border border-forest-900/15 dark:border-cream/15 bg-white dark:bg-forest-900 px-4 py-3 text-sm focus:border-forest-600 dark:focus:border-gold-400 outline-none transition-colors;
+  }
+}
+
+@layer utilities {
+  .scrollbar-none::-webkit-scrollbar { display: none; }
+  .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
+}
