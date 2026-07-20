@@ -1,12 +1,15 @@
 import Hero from '../components/home/Hero.jsx'
 import CategoryShowcase from '../components/home/CategoryShowcase.jsx'
 import ProductRail from '../components/home/ProductRail.jsx'
-import Testimonials from '../components/home/Testimonials.jsx'
 import FAQ from '../components/home/FAQ.jsx'
 import Newsletter from '../components/home/Newsletter.jsx'
-import { featured, bestSellers, newArrivals } from '../data/products.js'
+import { useProducts } from '../context/ProductContext.jsx'
 
 export default function Home() {
+  const { products } = useProducts()
+  const featured = products.slice(0, 8)
+  const bestSellers = products.filter((product) => product.tags.includes('bestseller'))
+  const newArrivals = products.slice(0, 8)
   return (
     <div>
       <Hero />
@@ -34,7 +37,6 @@ export default function Home() {
         products={newArrivals}
         viewAllHref="/shop?sort=new"
       />
-      <Testimonials />
       <FAQ />
       <Newsletter />
     </div>

@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import Breadcrumbs from '../components/ui/Breadcrumbs.jsx'
-import { categories, products } from '../data/products.js'
+import { categories } from '../data/products.js'
+import { useProducts } from '../context/ProductContext.jsx'
 
 const images = {
   indoor: 'photo-1593482892290-f54927ae1bb6',
@@ -13,6 +14,7 @@ const images = {
 }
 
 export default function Categories() {
+  const { products } = useProducts()
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
       <Breadcrumbs items={[{ label: 'Categories' }]} />

@@ -4,6 +4,7 @@ import ProductCard from '../product/ProductCard.jsx'
 import SectionHeading from '../ui/SectionHeading.jsx'
 
 export default function ProductRail({ eyebrow, title, subtitle, products, viewAllHref }) {
+  if (products.length === 0) return null
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-10">
