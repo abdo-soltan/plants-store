@@ -1,18 +1,18 @@
 import { useState } from 'react'
 import { useParams, Link, Navigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Heart, ShoppingBag, Truck, ShieldCheck, Sun, Droplets, Gauge, Minus, Plus } from 'lucide-react'
+import { Heart, ShoppingBag, Truck, ShieldCheck, Sun, Droplets, Gauge } from 'lucide-react'
 import Breadcrumbs from '../components/ui/Breadcrumbs.jsx'
-import StarRating from '../components/ui/StarRating.jsx'
 import Badge from '../components/ui/Badge.jsx'
 import QuantitySelector from '../components/ui/QuantitySelector.jsx'
 import ProductCard from '../components/product/ProductCard.jsx'
-import { getProductBySlug, getRelated } from '../data/products.js'
+import { useProducts } from '../context/ProductContext.jsx'
 import { useCart } from '../context/CartContext.jsx'
 import { useWishlist } from '../context/WishlistContext.jsx'
 
 export default function ProductDetails() {
   const { slug } = useParams()
+  const { getProductBySlug, getRelated } = useProducts()
   const product = getProductBySlug(slug)
   const [activeImg, setActiveImg] = useState(0)
   const [qty, setQty] = useState(1)
@@ -63,10 +63,6 @@ export default function ProductDetails() {
             <Badge tone="outline">{product.category.replace('-', ' ')}</Badge>
           </div>
           <h1 className="text-3xl sm:text-4xl font-display">{product.name}</h1>
-          <div className="mt-3 flex items-center gap-3">
-            <StarRating rating={product.rating} />
-            <span className="text-sm text-forest-900/50 dark:text-cream/50">{product.reviews} reviews</span>
-          </div>
           <div className="mt-5 flex items-baseline gap-3">
             <span className="text-3xl font-semibold text-forest-900 dark:text-gold-400">${product.price.toFixed(2)}</span>
             {product.oldPrice && <span className="text-lg text-forest-900/40 dark:text-cream/40 line-through">${product.oldPrice.toFixed(2)}</span>}
@@ -118,7 +114,7 @@ export default function ProductDetails() {
 
           <div className="mt-10 border-t border-forest-900/10 dark:border-cream/10 pt-6">
             <div className="flex gap-6 border-b border-forest-900/10 dark:border-cream/10">
-              {['description', 'care', 'reviews'].map((t) => (
+              {['description', 'care'].map((t) => (
                 <button
                   key={t}
                   onClick={() => setTab(t)}
@@ -139,12 +135,6 @@ export default function ProductDetails() {
                   <li><strong>Difficulty:</strong> {product.care.difficulty}</li>
                   <li><strong>Pet safety:</strong> {product.tags.includes('pet-friendly') ? 'Safe around pets' : 'Keep away from curious pets'}</li>
                 </ul>
-              )}
-              {tab === 'reviews' && (
-                <div className="space-y-4">
-                  <p>{product.reviews} customers have rated this plant {product.rating.toFixed(1)} out of 5 stars.</p>
-                  <div className="flex items-center gap-2"><StarRating rating={product.rating} /></div>
-                </div>
               )}
             </div>
           </div>

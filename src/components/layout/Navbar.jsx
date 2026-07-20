@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
-import { Search, Heart, ShoppingBag, Menu, Sun, Moon, User, Leaf } from 'lucide-react'
+import { Search, Heart, ShoppingBag, Menu, Sun, Moon, User, Leaf, LogOut, Shield } from 'lucide-react'
 import { useCart } from '../../context/CartContext.jsx'
 import { useWishlist } from '../../context/WishlistContext.jsx'
 import { useTheme } from '../../context/ThemeContext.jsx'
 import MobileMenu from './MobileMenu.jsx'
-import { products } from '../../data/products.js'
+import { useProducts } from '../../context/ProductContext.jsx'
+import { useAuth } from '../../context/AuthContext.jsx'
 
 const links = [
   { to: '/', label: 'Home' },
@@ -23,6 +24,8 @@ export default function Navbar() {
   const { itemCount, setIsCartOpen } = useCart()
   const { items: wishItems } = useWishlist()
   const { theme, toggleTheme } = useTheme()
+  const { products } = useProducts()
+  const { user, logout } = useAuth()
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -94,13 +97,12 @@ export default function Navbar() {
               >
                 {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
               </button>
-              <Link
-                to="/login"
-                className="hidden sm:flex w-10 h-10 rounded-full items-center justify-center hover:bg-forest-900/5 dark:hover:bg-cream/10 transition-colors"
-                aria-label="Account"
-              >
-                <User size={18} />
-              </Link>
+              {user ? <>
+                <Link to={user.role === 'admin' ? '/admin' : '/request'} className="hidden sm:flex items-center gap-2 h-10 px-3 rounded-full hover:bg-forest-900/5 dark:hover:bg-cream/10 transition-colors text-sm" aria-label={user.role === 'admin' ? 'Administrator dashboard' : 'Send a request'}>
+                  {user.role === 'admin' ? <Shield size={17} /> : <User size={17} />} <span className="max-w-24 truncate">{user.username}</span>
+                </Link>
+                <button onClick={logout} className="hidden sm:flex w-10 h-10 rounded-full items-center justify-center hover:bg-forest-900/5 dark:hover:bg-cream/10 transition-colors" aria-label="Sign out"><LogOut size={17} /></button>
+              </> : <Link to="/login" className="hidden sm:flex w-10 h-10 rounded-full items-center justify-center hover:bg-forest-900/5 dark:hover:bg-cream/10 transition-colors" aria-label="Account"><User size={18} /></Link>}
               <Link
                 to="/wishlist"
                 className="relative w-10 h-10 rounded-full flex items-center justify-center hover:bg-forest-900/5 dark:hover:bg-cream/10 transition-colors"
@@ -143,7 +145,7 @@ export default function Navbar() {
                   autoFocus
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
-                  placeholder="Search for plants, e.g. Monstera..."
+                  placeholder="Search available plants..."
                   className="input-field pl-11"
                 />
               </form>

@@ -12,6 +12,8 @@ import Checkout from './pages/Checkout.jsx'
 import Login from './pages/Login.jsx'
 import Register from './pages/Register.jsx'
 import NotFound from './pages/NotFound.jsx'
+import Admin from './pages/Admin.jsx'
+import SendRequest from './pages/SendRequest.jsx'
 
 export default function App() {
   return (
@@ -28,6 +30,8 @@ export default function App() {
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/request" element={<SendRequest />} />
+        <Route path="/admin" element={<Admin />} />
         <Route path="/404" element={<NotFound />} />
         <Route path="*" element={<NotFound />} />
       </Route>

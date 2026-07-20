@@ -5,7 +5,8 @@ import { SlidersHorizontal, X, Search } from 'lucide-react'
 import ProductCard from '../components/product/ProductCard.jsx'
 import { GridSkeleton } from '../components/ui/Skeleton.jsx'
 import Breadcrumbs from '../components/ui/Breadcrumbs.jsx'
-import { products, categories } from '../data/products.js'
+import { categories } from '../data/products.js'
+import { useProducts } from '../context/ProductContext.jsx'
 
 const SORT_OPTIONS = [
   { value: 'featured', label: 'Featured' },
@@ -13,10 +14,10 @@ const SORT_OPTIONS = [
   { value: 'new', label: 'Newest' },
   { value: 'price-asc', label: 'Price: Low to High' },
   { value: 'price-desc', label: 'Price: High to Low' },
-  { value: 'rating', label: 'Top Rated' },
 ]
 
 export default function Shop() {
+  const { products } = useProducts()
   const [params, setParams] = useSearchParams()
   const [loading, setLoading] = useState(true)
   const [filtersOpen, setFiltersOpen] = useState(false)
@@ -59,9 +60,6 @@ export default function Shop() {
         break
       case 'price-desc':
         list.sort((a, b) => b.price - a.price)
-        break
-      case 'rating':
-        list.sort((a, b) => b.rating - a.rating)
         break
       default:
         break

@@ -1,13 +1,12 @@
 import { motion } from 'framer-motion'
-import { Leaf, Users, Award, Sprout } from 'lucide-react'
+import { Leaf, Users, Sprout } from 'lucide-react'
 import Breadcrumbs from '../components/ui/Breadcrumbs.jsx'
 import SectionHeading from '../components/ui/SectionHeading.jsx'
-import Testimonials from '../components/home/Testimonials.jsx'
 
 const stats = [
   { icon: Leaf, value: '120k+', label: 'Plants delivered' },
   { icon: Users, value: '38k+', label: 'Happy growers' },
-  { icon: Award, value: '4.8/5', label: 'Average rating' },
+  { icon: Sprout, value: 'Admin-led', label: 'Product management' },
   { icon: Sprout, value: '30-day', label: 'Thriving guarantee' },
 ]
 
@@ -90,7 +89,6 @@ export default function About() {
         </div>
       </section>
 
-      <Testimonials />
     </div>
   )
 }

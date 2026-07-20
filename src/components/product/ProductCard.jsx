@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Heart, ShoppingBag } from 'lucide-react'
-import StarRating from '../ui/StarRating.jsx'
 import Badge from '../ui/Badge.jsx'
 import { useCart } from '../../context/CartContext.jsx'
 import { useWishlist } from '../../context/WishlistContext.jsx'
@@ -52,7 +51,6 @@ export default function ProductCard({ product, index = 0 }) {
           {product.category.replace('-', ' ')}
         </span>
         <h3 className="font-display text-lg text-forest-950 dark:text-cream leading-snug">{product.name}</h3>
-        <StarRating rating={product.rating} />
         <div className="mt-1 flex items-center gap-2">
           <span className="font-semibold text-forest-900 dark:text-gold-400">${product.price.toFixed(2)}</span>
           {product.oldPrice && (

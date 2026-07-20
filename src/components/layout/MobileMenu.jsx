@@ -1,10 +1,12 @@
 import { NavLink } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
-import { X, Sun, Moon, User } from 'lucide-react'
+import { X, Sun, Moon, User, Shield, Send, LogOut } from 'lucide-react'
 import { useTheme } from '../../context/ThemeContext.jsx'
+import { useAuth } from '../../context/AuthContext.jsx'
 
 export default function MobileMenu({ open, onClose, links }) {
   const { theme, toggleTheme } = useTheme()
+  const { user, logout } = useAuth()
   return (
     <AnimatePresence>
       {open && (
@@ -45,9 +47,12 @@ export default function MobileMenu({ open, onClose, links }) {
                   {l.label}
                 </NavLink>
               ))}
-              <NavLink to="/login" onClick={onClose} className="py-3.5 px-3 rounded-xl text-base font-medium flex items-center gap-2 text-forest-900/70 dark:text-cream/70">
-                <User size={18} /> Account
-              </NavLink>
+              {user ? <>
+                <NavLink to={user.role === 'admin' ? '/admin' : '/request'} onClick={onClose} className="py-3.5 px-3 rounded-xl text-base font-medium flex items-center gap-2 text-forest-900/70 dark:text-cream/70">
+                  {user.role === 'admin' ? <Shield size={18} /> : <Send size={18} />} {user.role === 'admin' ? 'Admin dashboard' : 'Send a request'}
+                </NavLink>
+                <button onClick={() => { logout(); onClose() }} className="py-3.5 px-3 rounded-xl text-base font-medium flex items-center gap-2 text-forest-900/70 dark:text-cream/70"><LogOut size={18} /> Sign out</button>
+              </> : <NavLink to="/login" onClick={onClose} className="py-3.5 px-3 rounded-xl text-base font-medium flex items-center gap-2 text-forest-900/70 dark:text-cream/70"><User size={18} /> Account</NavLink>}
             </nav>
             <button
               onClick={toggleTheme}

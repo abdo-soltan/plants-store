@@ -57,21 +57,6 @@ export default function Hero() {
               className="w-full h-full object-cover"
             />
           </div>
-          <motion.div
-            animate={{ y: [0, -12, 0] }}
-            transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-            className="absolute -bottom-6 -left-6 glass rounded-3xl p-4 shadow-glass hidden sm:flex items-center gap-3 max-w-[220px]"
-          >
-            <img
-              src="https://images.unsplash.com/photo-1614594975525-e45190c55d0b?auto=format&fit=crop&w=120&q=80"
-              alt=""
-              className="w-12 h-12 rounded-2xl object-cover"
-            />
-            <div>
-              <p className="text-xs font-semibold">Monstera Deliciosa</p>
-              <p className="text-xs text-forest-900/50 dark:text-cream/60">4.9 ★ · 214 reviews</p>
-            </div>
-          </motion.div>
         </motion.div>
       </div>
     </section>
